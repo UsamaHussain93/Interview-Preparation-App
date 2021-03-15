@@ -9,7 +9,7 @@ import com.fdmgroup.model.Question;
 @Configuration
 public class AppConfig {
 
-	// a comment
+	// a comment, hello
 	@Bean
 	public Question userDaoOld(){
 		return new Question(); 
