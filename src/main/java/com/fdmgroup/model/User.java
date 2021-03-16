@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Userr")
 public class User {
 	@Id
 	private int id;
@@ -32,6 +34,10 @@ public class User {
 		this.password = password;
 		this.email = email;
 		this.type = type;
+	}
+	
+	public User() {
+		super();
 	}
 	public int getId() {
 		return id;
