@@ -24,21 +24,21 @@ public class User {
 	@Column
 	private String email;
 	@Enumerated(EnumType.STRING)
-	private AccountType type;
-	public User(int id, String username, String password, String email, AccountType type) {
+	private AccountType accountType;
+	public User(int id, String username, String password, String email, AccountType accountType) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.type = type;
+		this.accountType = accountType;
 	}
-	public User(String username, String password, String email, AccountType type) {
+	public User(String username, String password, String email, AccountType accountType) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.type = type;
+		this.accountType = accountType;
 	}
 	public User(String username, String password, String email) {
 		super();
@@ -74,16 +74,39 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public AccountType getType() {
-		return type;
+	public AccountType getAccountType() {
+		return accountType;
 	}
-	public void setType(AccountType type) {
-		this.type = type;
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", type="
-				+ type + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", accountType="
+				+ accountType + "]";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
 	
 
