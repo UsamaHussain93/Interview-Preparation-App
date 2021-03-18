@@ -2,22 +2,29 @@ package com.fdmgroup.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Answer {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "answer_generator")
+	@SequenceGenerator(name="answer_generator", sequenceName = "answer_seq", allocationSize=1)
 	private int id;
 
 	@ManyToOne
 	@JoinColumn(name = "question_id")
 	private Question question;
 	
+	@Column
     private String answerText;
     
+	@Column
     private boolean isCorrectAnswer;
     
     public Answer() {
