@@ -43,7 +43,7 @@ public class UserController {
     return null;
     }
 	
-	@PostMapping("loginuser")
+	@PostMapping("/loginuser")
 	public boolean getUser(@RequestBody User incomingUser) {
 		List<User> foundUsers = new ArrayList<>();
 		userDao.findAll().forEach(user -> foundUsers.add(user));
