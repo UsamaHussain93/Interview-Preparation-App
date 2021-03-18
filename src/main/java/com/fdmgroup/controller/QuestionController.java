@@ -42,8 +42,8 @@ public class QuestionController {
 	}
 	
 	@PostMapping("/question")
-	public Question addQuestion(@RequestBody Question incomingUser) {
-		return qDao.save(incomingUser);
+	public Question addQuestion(@RequestBody Question incomingQuestion) {
+		return qDao.save(incomingQuestion);
 	}
 	
 	@DeleteMapping("/question/{id}")
