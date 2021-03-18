@@ -4,13 +4,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Userr")
 public class User {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SportsAccount_generator")
+	@SequenceGenerator(name="SportsAccount_generator", sequenceName = "SportsAccount_seq", allocationSize=1)
 	private int id;
 	@Column
 	private String username;
@@ -34,6 +39,12 @@ public class User {
 		this.password = password;
 		this.email = email;
 		this.type = type;
+	}
+	public User(String username, String password, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
 	}
 	
 	public User() {
