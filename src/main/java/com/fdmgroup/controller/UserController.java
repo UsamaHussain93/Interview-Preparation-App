@@ -44,5 +44,9 @@ public class UserController {
 	public User updateUser(User incomingUser) {
 		return userDao.save(incomingUser);
 	}
+	@GetMapping("/AccountAlreadyexists")
+	public boolean exists(String username) {
+		return userDao.equals(username);
+	}
 
 }
