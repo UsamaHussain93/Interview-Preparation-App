@@ -5,15 +5,21 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Question {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_generator")
+	@SequenceGenerator(name="question_generator", sequenceName = "question_seq", allocationSize=1)
 	private int id; 
 	
+	@Column
 	private String description;
 	
 	private InterviewType interviewType;
