@@ -33,30 +33,52 @@ public class UserController {
 	
 	@GetMapping("/users/{userName}")
 	public User getUser(@PathVariable String userName) {
-		 List<User> foundUsers = new ArrayList<>();
-	     userDao.findAll().forEach(user -> foundUsers.add(user));
-	     for(User u: foundUsers) {
-	    	 if(u.getUsername().compareTo(userName) == 0) {
-	    		return u; 
-	    	 }
-	    }
-		return null;
-	     
-	   }
+	List<User> foundUsers = new ArrayList<>();
+    userDao.findAll().forEach(user -> foundUsers.add(user));
+    for(User u: foundUsers) {
+    	if(u.getUsername().compareTo(userName) == 0) {
+    		return u; 
+    		}
+    	}
+    return null;
+    }
+	
+	@PostMapping("loginuser")
+	public boolean getUser(@RequestBody User incomingUser) {
+		List<User> foundUsers = new ArrayList<>();
+		userDao.findAll().forEach(user -> foundUsers.add(user));
+		if(foundUsers.contains(incomingUser)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	
 	@PostMapping("/adduser")
 	public User addUser(@RequestBody User incomingUser) {
 //		List<User>userList = (List<User>) userDao.findAll();
 		List<User> foundUsers = new ArrayList<>();
+		String userName = incomingUser.getUsername();
 		userDao.findAll().forEach(user -> foundUsers.add(user));
 		
-		if(foundUsers.contains(incomingUser)) {
-			return null;
-		}
-		else {
-			return userDao.save(incomingUser);
-		}
+		for(User u: foundUsers) {
+	    	if(u.getUsername().compareTo(userName) == 0) {
+	    		return null;
+	    		}
+	    	else {
+	    		return userDao.save(incomingUser);
+	    		}
+	    	}
+		return null;
+	    
+//		if(foundUsers.contains(incomingUser)) {
+//			return null;
+//		}
+//		else {
+//			return userDao.save(incomingUser);
+//		}
 	}
 	
 //	@DeleteMapping("/delete")

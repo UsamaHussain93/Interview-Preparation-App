@@ -16,7 +16,8 @@ public class Question {
 	
 	private String description;
 	
-	
+	private InterviewType interviewType;
+
 	@OneToMany(mappedBy = "question")
 	List<Answer> answers;
 	
@@ -63,10 +64,19 @@ public class Question {
 		}
 		return answer;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", description=" + description + "]";
+		return "Question [id=" + id + ", description=" + description + ", interviewType=" + interviewType + ", answers="
+				+ answers + "]";
+	}
+
+	public InterviewType getInterviewType() {
+		return interviewType;
+	}
+
+	public void setInterviewType(InterviewType interviewType) {
+		this.interviewType = interviewType;
 	}
 	
 }
