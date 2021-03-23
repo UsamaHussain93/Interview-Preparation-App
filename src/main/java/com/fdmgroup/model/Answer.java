@@ -7,9 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({ "question" })
 public class Answer {
 	
 	@Id
@@ -17,7 +21,7 @@ public class Answer {
 	@SequenceGenerator(name="answer_generator", sequenceName = "answer_seq", allocationSize=1)
 	private int id;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "question_id")
 	private Question question;
 	

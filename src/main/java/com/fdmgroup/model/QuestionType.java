@@ -1,6 +1,6 @@
 package com.fdmgroup.model;
 
-public enum InterviewType {
+public enum QuestionType {
 	Behavioural,
 	Technical
 }

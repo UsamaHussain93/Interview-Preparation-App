@@ -1,6 +1,5 @@
 package com.fdmgroup.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,9 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({ "answers" })
 public class Question {
 	
 	@Id
@@ -22,20 +25,22 @@ public class Question {
 	@Column
 	private String description;
 	
-	private InterviewType interviewType;
+	private QuestionType questionType;
+	
+	private QuestionTopic questionTopic;
 
-	@OneToMany(mappedBy = "question")
-	List<Answer> answers;
+	@OneToOne(mappedBy = "question")
+	Answer answer;
 	
 	public Question() {
 		
 	}
 	
-	public Question(int id, String description, List<Answer> answers) {
+	public Question(int id, String description, Answer answer) {
 		super();
 		this.id = id;
 		this.description = description;
-		this.answers = answers;
+		this.answer = answer;
 	}
 
 	public int getId() {
@@ -54,35 +59,61 @@ public class Question {
 		this.description = description;
 	}
 
-	public List<Answer> getAnswers() {
-		return answers;
+	public Answer getAnswers() {
+		return answer;
 	}
 
-	public void setAnswers(List<Answer> answers) {
-		this.answers = answers;
+	public void setAnswers(Answer answers) {
+		this.answer = answers;
 	}
 
 	public Answer getCorrectAnswer() {
-		Answer answer = null;
-		for(Answer a: answers) {
-			if(a.isCorrectAnswer())
-				answer = a;
-		}
+//		Answer answer = null;
+//		for(Answer a: answers) {
+//			if(a.isCorrectAnswer())
+//				answer = a;
+//		}
+//		return answer;
+		return null;
+	}
+
+	
+	public QuestionType getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(QuestionType questionType) {
+		this.questionType = questionType;
+	}
+
+	public QuestionTopic getQuestionTopic() {
+		return questionTopic;
+	}
+
+	public void setQuestionTopic(QuestionTopic questionTopic) {
+		this.questionTopic = questionTopic;
+	}
+
+	public Answer getAnswer() {
 		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
 	}
 
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", description=" + description + ", interviewType=" + interviewType + ", answers="
-				+ answers + "]";
+		return "Question [id=" + id + ", description=" + description + ", interviewType=" + questionType + ", answers="
+				+ answer + "]";
 	}
 
-	public InterviewType getInterviewType() {
-		return interviewType;
+	public QuestionType getInterviewType() {
+		return questionType;
 	}
 
-	public void setInterviewType(InterviewType interviewType) {
-		this.interviewType = interviewType;
+	public void setInterviewType(QuestionType interviewType) {
+		this.questionType = interviewType;
 	}
 	
 }
