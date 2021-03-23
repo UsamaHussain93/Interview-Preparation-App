@@ -63,14 +63,20 @@ public class UserController {
 		String userName = incomingUser.getUsername();
 		userDao.findAll().forEach(user -> foundUsers.add(user));
 		
-		for(User u: foundUsers) {
-	    	if(u.getUsername().compareTo(userName) == 0) {
-	    		return null;
-	    		}
-	    	else {
-	    		return userDao.save(incomingUser);
+		if(foundUsers.isEmpty())
+		{
+			return userDao.save(incomingUser);
+		}
+		else {
+			for(User u: foundUsers) {
+				if(u.getUsername().compareTo(userName) == 0) {
+					return null;
+				}
+				else {
+					return userDao.save(incomingUser);
 	    		}
 	    	}
+		}
 		return null;
 	    
 //		if(foundUsers.contains(incomingUser)) {
