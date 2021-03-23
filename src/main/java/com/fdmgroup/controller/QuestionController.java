@@ -41,7 +41,7 @@ public class QuestionController {
 		
 	}
 	
-	@PostMapping("/question")
+	@PostMapping("/add-question")
 	public Question addQuestion(@RequestBody Question incomingQuestion) {
 		return qDao.save(incomingQuestion);
 	}
