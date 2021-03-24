@@ -2,6 +2,7 @@ package com.fdmgroup.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class Question {
 	
 	private QuestionTopic questionTopic;
 
-	@OneToOne(mappedBy = "question")
+	@OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
 	Answer answer;
 	
 	public Question() {
@@ -59,24 +60,13 @@ public class Question {
 		this.description = description;
 	}
 
-	public Answer getAnswers() {
-		return answer;
-	}
-
-	public void setAnswers(Answer answers) {
-		this.answer = answers;
-	}
-
-	public Answer getCorrectAnswer() {
-//		Answer answer = null;
-//		for(Answer a: answers) {
-//			if(a.isCorrectAnswer())
-//				answer = a;
-//		}
-//		return answer;
-		return null;
-	}
-
+//	public List<Answer> getAnswers() {
+//		return answers;
+//	}
+//
+//	public void setAnswers(Answer answers) {
+//		this.answers = answers;
+//	}
 	
 	public QuestionType getQuestionType() {
 		return questionType;
@@ -104,16 +94,6 @@ public class Question {
 
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", description=" + description + ", interviewType=" + questionType + ", answers="
-				+ answer + "]";
-	}
-
-	public QuestionType getInterviewType() {
-		return questionType;
-	}
-
-	public void setInterviewType(QuestionType interviewType) {
-		this.questionType = interviewType;
-	}
-	
+		return "Question [id=" + id + ", description=" + description + ", questionType=" + questionType + "]";
+	}	
 }

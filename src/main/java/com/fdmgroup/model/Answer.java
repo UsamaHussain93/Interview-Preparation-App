@@ -1,5 +1,6 @@
 package com.fdmgroup.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Answer {
 	@SequenceGenerator(name="answer_generator", sequenceName = "answer_seq", allocationSize=1)
 	private int id;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_id")
 	private Question question;
 	
@@ -70,7 +71,7 @@ public class Answer {
 
 	@Override
 	public String toString() {
-		return "Answer [id=" + id + ", questionId=" + question.getId() + ", answerText=" + answerText + "]";
+		return "Answer [id=" + id + ", answerText=" + answerText + "]";
 	}
 
 	public boolean isCorrectAnswer() {
