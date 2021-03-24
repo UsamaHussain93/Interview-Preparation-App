@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fdmgroup.dao.AnswerDao;
 import com.fdmgroup.dao.QuestionDao;
 import com.fdmgroup.model.Answer;
 import com.fdmgroup.model.Question;
@@ -26,8 +25,7 @@ public class QuestionController {
 	@Autowired
 	QuestionDao qDao;
 	
-	@Autowired
-	AnswerDao aDao;
+
 	
 	@GetMapping("/all-questions")
 	public List<Question> getAllUsers(){
@@ -53,11 +51,7 @@ public class QuestionController {
 		return qDao.save(incomingQuestion);
 	}
 	
-	@PostMapping("/add-answer")
-	public Answer addAnswer(@RequestBody Answer incomingAnswer) {
-		System.out.println(incomingAnswer);
-		return aDao.save(incomingAnswer);
-	}
+
 	//addAnswer
 	
 	//link method @id 1 @id 1
@@ -84,21 +78,5 @@ public class QuestionController {
 	}
 	
 	
-	//Once I have the most basic/easy addQuestion, and addAnswer, then let's do a basic link
-	@PostMapping("/link")
-	public void basicLink(@PathVariable int questionId, @PathVariable int answerId) {
-		Optional<Answer> a = aDao.findById(answerId);
-		Optional<Question> q = qDao.findById(questionId);
-		Answer answer = null;
-		Question question = null;
-		if(a.isPresent()) {
-			 answer = a.get();
-		}
-		if(q.isPresent()) {
-			question = q.get();
-		}
-		
-		answer.setQuestion(question);
-		question.setAnswer(answer);
-	}
+
 }
