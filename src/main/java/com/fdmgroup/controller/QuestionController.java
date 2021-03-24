@@ -64,7 +64,7 @@ public class QuestionController {
 	
 	//addBoth @Question-with-no-answer @Answer-with-no-question
 	//q.setAnsw(a), a.setQ(q)
-	@PostMapping("/add-question")
+//	@PostMapping("/add-question")
 //	public Question addQuestionAndAnswer(@RequestBody Question incomingQuestion) 
 //	{
 //		System.out.println("Question: " + incomingQuestion);
