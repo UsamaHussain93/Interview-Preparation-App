@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.fdmgroup.dao.AnswerDao;
 import com.fdmgroup.dao.LinkQADao;
@@ -54,29 +54,17 @@ public class QuestionController {
 	
 	@PostMapping("/add-question")
 	public Question addQuestion(@RequestBody Question incomingQuestion) {
-//		System.out.println(incomingQuestion);
+		System.out.println(incomingQuestion);
 		return qDao.save(incomingQuestion);
 	}
 	
+
 	@PostMapping("/add-answer")
 	public Answer addAnswer(@RequestBody Answer incomingAnswers) 
 	{
-//		System.out.println(incomingAnswers);
+		System.out.println(incomingAnswers);
 		return aDao.save(incomingAnswers);
 	}
-	//addAnswer
-	
-	//link method @id 1 @id 1
-	
-	//addBoth @Question-with-no-answer @Answer-with-no-question
-	//q.setAnsw(a), a.setQ(q)
-//	@PostMapping("/add-question")
-//	public Question addQuestionAndAnswer(@RequestBody Question incomingQuestion) 
-//	{
-//		System.out.println("Question: " + incomingQuestion);
-//		
-//		return qDao.save(incomingQuestion);
-//	}
 	
 	@DeleteMapping("/question/{id}")
 	public void deleteQuestion(@PathVariable int id) {
@@ -88,8 +76,6 @@ public class QuestionController {
 	public Question updateQuestion(@RequestBody Question incomingQuestion) {
 		return qDao.save(incomingQuestion);
 	}
-	
-	
 	
 	@PostMapping("/link")
 	public LinkQA basicLink(@RequestBody LinkQA qa) {
