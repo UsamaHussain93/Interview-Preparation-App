@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.dao.AnswerDao;
+import com.fdmgroup.dao.LinkQADao;
 import com.fdmgroup.dao.QuestionDao;
 import com.fdmgroup.model.Answer;
 import com.fdmgroup.model.Question;
@@ -28,6 +30,9 @@ public class QuestionController {
 	
 	@Autowired
 	AnswerDao aDao;
+	
+	@Autowired
+	LinkQADao qaDao;
 	
 	@GetMapping("/all-questions")
 	public List<Question> getAllUsers(){
@@ -49,14 +54,15 @@ public class QuestionController {
 	
 	@PostMapping("/add-question")
 	public Question addQuestion(@RequestBody Question incomingQuestion) {
-		System.out.println(incomingQuestion);
+//		System.out.println(incomingQuestion);
 		return qDao.save(incomingQuestion);
 	}
 	
 	@PostMapping("/add-answer")
-	public Answer addAnswer(@RequestBody Answer incomingAnswer) {
-		System.out.println(incomingAnswer);
-		return aDao.save(incomingAnswer);
+	public Answer addAnswer(@RequestBody Answer incomingAnswers) 
+	{
+//		System.out.println(incomingAnswers);
+		return aDao.save(incomingAnswers);
 	}
 	//addAnswer
 	
@@ -84,21 +90,32 @@ public class QuestionController {
 	}
 	
 	
-	//Once I have the most basic/easy addQuestion, and addAnswer, then let's do a basic link
+	
 	@PostMapping("/link")
-	public void basicLink(@PathVariable int questionId, @PathVariable int answerId) {
-		Optional<Answer> a = aDao.findById(answerId);
-		Optional<Question> q = qDao.findById(questionId);
-		Answer answer = null;
+	public LinkQA basicLink(@RequestBody LinkQA qa) {
+		System.out.println("Link! Listen!");
+		
+		System.out.println(">>> qa:" + qa);
+
+		
+		Optional<Question> q = qDao.findById(qa.getqId());
 		Question question = null;
+		Answer answer = null;
+		
+		Optional<Answer> a = aDao.findById(qa.getaId());
+
 		if(a.isPresent()) {
 			 answer = a.get();
+			if(q.isPresent()) {
+				question = q.get();
+				
+				question.setAnswer(answer);
+				answer.setQuestion(question);
+				
+				qDao.save(question);
+				aDao.save(answer);
+			}
 		}
-		if(q.isPresent()) {
-			question = q.get();
-		}
-		
-		answer.setQuestion(question);
-		question.setAnswer(answer);
+		return qa;
 	}
 }
