@@ -1,0 +1,57 @@
+<div class="container">
+    <h2>Submit a question</h2>
+    <form class="form" #questionForm="ngForm" >
+
+        <div class="form-check form-check-inline">
+            <input [(ngModel)]="question.questionType" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Behavioural" (change)="onItemChange($event.target.value)">
+            <label class="form-check-label" for="inlineRadio1">Behavioural</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input [(ngModel)]="question.questionType" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Technical" (click)="onItemChange($event.target.value)">
+            <label class="form-check-label" for="inlineRadio2">Technical</label>
+        </div>
+       
+        <div *ngIf="isTechnical"  class="form-group">
+            <select [(ngModel)]="question.questionTopic" class="custom-select" name="questionTopic">
+                <option selected>Select Question Topic</option>
+                <option *ngFor="let topic of topics">{{ topic }}</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="">Description</label>
+            <input [(ngModel)]="question.description"  type="text" class="form-control" name="description" placeholder="Enter your question">
+        </div>
+         
+<!--             
+        <div *ngIf="isTechnical" class="form-group">
+            <label for="">Number Of Choices</label>
+            <select [(ngModel)]="numberOfChoices" class="custom-select" id="numberOfChoices" name="numberOfChoices">
+               
+                <option selected>2</option>
+                <option selected>4</option>
+                <option selected>Select number of Choices</option>
+            </select>  
+        </div> -->
+       
+        <!-- <div *ngFor="let num of numberOfChoices">
+            {{num}}
+        </div> -->
+
+        <div>
+            <label for="">Answer:</label>
+            <input [(ngModel)]="answer.answerText" type="text" class="form-control" name="answerText" placeholder="Enter your answer">
+        </div>
+
+        <div>{{answer | json}}</div>
+
+        <div> {{question | json }}
+        </div>
+        <div *ngFor="let answer of numberOfChoices; index as i;  first as isFirst">
+            {{i}}    
+        </div>
+
+
+        <button (click)="submitQuestion(questionForm)" type="button" class="btn btn-success float-right">Submit Question</button>
+    </form>
+</div>

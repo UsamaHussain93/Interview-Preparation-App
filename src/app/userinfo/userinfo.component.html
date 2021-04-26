@@ -1,0 +1,79 @@
+
+
+
+<div class="row pt-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="mb-0">User Profile</h3>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row row-cols-2">
+                        <div class="col">Username</div>
+                        <div class="col-md-6">{{userName}}</div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col">Email</div>
+                        <div class="col-md-6">{{email}}</div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col">Account Type</div>
+                        <div class="col-md-6">{{accountType}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="mb-0">Scores</h3>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row row-cols-2">
+                        <div class="col" routerLink="/behavioural">Behavioural</div>
+                        <div class="col-md-6">userscore</div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col" routerLink="/software-development">Software Development</div>
+                        <div class="col-md-6">userscore</div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col" routerLink="/devops">Devops</div>
+                        <div class="col-md-6">userscore</div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col" routerLink="/business-analyst">Business Analyst</div>
+                        <div class="col-md-6">userscore</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-5" *ngIf="isTrainer()">
+    <div class="col-md-6 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header">
+
+                <h3 class="mb-0">Add New Question</h3>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row row-cols-2">
+                        <div class="col" routerLink="/trainer-profile">
+                            add question
+                            <!-- <app-create-question></app-create-question> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
