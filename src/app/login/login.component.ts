@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { AuthService } from '../auth.service';
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   buttonValue: any;
 
-  constructor(private _auth: AuthService, private _sessionService: SessionService) { }
+  constructor(private _auth: AuthService, private _sessionService: SessionService, private readonly router: Router) { }
 
   ngOnInit(): void {
   }
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
           this._sessionService.setUserSession(response);
           this.loggedIn.next(this._sessionService.isSetUserSession());
           this.loginErrorMessage = false;
+          this.router.navigate(["/home"])
           return true;
         }
         else {
