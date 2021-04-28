@@ -34,7 +34,7 @@ public class QuestionController {
 	@Autowired
 	LinkQADao qaDao;
 	
-	@GetMapping("/all-questions")
+	@GetMapping("/all-questions") //Test in Postman give Internal Server Error
 	public List<Question> getAllUsers(){
 		System.out.println("GET ALL QUESTIONS");
 		List<Question> foundQuestions = new ArrayList<Question>();
@@ -46,35 +46,45 @@ public class QuestionController {
 		return foundQuestions;
 	}
 	
-	@GetMapping("/question/{id}")
+	@GetMapping("/question/{id}") //Tested in Postman: Success
 	public Question getQuestion(@PathVariable int id) {
 		return qDao.findById(id).orElse(null);
 		
 	}
 	
-	@PostMapping("/add-question")
+	@PostMapping("/add-question") //Tested in Postman: Success
 	public Question addQuestion(@RequestBody Question incomingQuestion) {
 		System.out.println(incomingQuestion);
 		return qDao.save(incomingQuestion);
 	}
 	
 
-	@PostMapping("/add-answer")
-	public Answer addAnswer(@RequestBody Answer incomingAnswers) 
-	{
+	@PostMapping("/add-answer") //Tested in Postman: Success
+	public Answer addAnswer(@RequestBody Answer incomingAnswers) {
 		System.out.println(incomingAnswers);
 		return aDao.save(incomingAnswers);
 	}
 	
-	@DeleteMapping("/question/{id}")
+	@DeleteMapping("/delete-question/{id}") //Tested in Postman: Success
 	public void deleteQuestion(@PathVariable int id) {
 		Question foundQuestion = qDao.findById(id).orElse(null);
 		qDao.delete(foundQuestion);
 	}
 	
-	@PutMapping("/question")
-	public Question updateQuestion(@RequestBody Question incomingQuestion) {
-		return qDao.save(incomingQuestion);
+	@PutMapping("/update-question/{id}") //Tested in Postman: Failure. Method breaking the link between Question and Answer tables. Do not use Update, instead Delete and Add question again.
+	public Question updateQuestion(@RequestBody Question incomingQuestion, @PathVariable int id) {
+		return qDao.findById(id).map(question -> {
+			question.setDescription(incomingQuestion.getDescription());
+			question.setQuestionTopic(incomingQuestion.getQuestionTopic());
+			question.setQuestionType(incomingQuestion.getQuestionType());
+			question.setAnswer(incomingQuestion.getAnswer());
+			return qDao.save(question);
+		}).orElseGet(() -> {
+			incomingQuestion.setId(id);
+			return qDao.save(incomingQuestion);
+		});
+		
+//		return qDao.save(incomingQuestion);
 	}
 	
 	@PostMapping("/link")

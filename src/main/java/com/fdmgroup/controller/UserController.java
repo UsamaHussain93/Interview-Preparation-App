@@ -43,38 +43,42 @@ public class UserController {
     return null;
     }
 	
-	@PostMapping("/loginuser")
+	@PostMapping("/loginuser") //Tested in Postman: Success
 	public User getUser(@RequestBody User incomingUser) {
 		List<User> foundUsers = new ArrayList<>();
 		userDao.findAll().forEach(user -> foundUsers.add(user));
-		if(foundUsers.contains(incomingUser)) {
-			int index = foundUsers.indexOf(incomingUser);
-			return foundUsers.get(index);
-//			return true;
-		}
+			if(foundUsers.contains(incomingUser)) {
+				int index = foundUsers.indexOf(incomingUser);
+				return foundUsers.get(index);
+//				return true;
+			}
 		else {
 			return null;
 		}
 	}
 
 	
-	@PostMapping("/adduser")
+	@PostMapping("/adduser") //Tested in Postman: Success
 	public User addUser(@RequestBody User incomingUser) {
 //		List<User>userList = (List<User>) userDao.findAll();
 		List<User> foundUsers = new ArrayList<>();
 		String userName = incomingUser.getUsername();
+		String email = incomingUser.getEmail();
 		userDao.findAll().forEach(user -> foundUsers.add(user));
 		
 		if(foundUsers.isEmpty())
 		{
+			System.out.println("Registering First User");
 			return userDao.save(incomingUser);
 		}
 		else {
 			for(User u: foundUsers) {
-				if(u.getUsername().compareTo(userName) == 0) {
+				if(u.getUsername().equals(userName) || u.getEmail().equals(email)) {
+					System.out.println("Username or Email is already associated with another account");
 					return null;
 				}
 				else {
+					System.out.println("Registering New User");
 					return userDao.save(incomingUser);
 	    		}
 	    	}
