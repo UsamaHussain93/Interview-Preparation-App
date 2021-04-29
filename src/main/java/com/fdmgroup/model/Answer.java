@@ -22,8 +22,8 @@ public class Answer {
 	@SequenceGenerator(name="answer_generator", sequenceName = "answer_seq", allocationSize=1)
 	private int id;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "question_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "question_id")
 	private Question question;
 	
 	@Column

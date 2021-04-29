@@ -65,6 +65,7 @@ public class UserController {
 		List<User> foundUsers = new ArrayList<>();
 		String userName = incomingUser.getUsername();
 		String email = incomingUser.getEmail();
+
 		AccountType accountType = incomingUser.getAccountType();
 		userDao.findAll().forEach(user -> foundUsers.add(user));
 		

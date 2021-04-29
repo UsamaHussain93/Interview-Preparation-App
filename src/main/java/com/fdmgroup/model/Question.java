@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -30,14 +31,15 @@ public class Question {
 	
 	private QuestionTopic questionTopic;
 
-	@OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
-	Answer answer;
+	@OneToMany(mappedBy = "question")
+//	@JoinColumn(name = "answer_id")
+	private List<Answer> answer;
 	
 	public Question() {
 		
 	}
 	
-	public Question(int id, String description, Answer answer) {
+	public Question(int id, String description, List<Answer> answer) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -84,11 +86,11 @@ public class Question {
 		this.questionTopic = questionTopic;
 	}
 
-	public Answer getAnswer() {
+	public List<Answer> getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(Answer answer) {
+	public void setAnswer(List<Answer> answer) {
 		this.answer = answer;
 	}
 

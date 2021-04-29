@@ -55,7 +55,14 @@ public class QuestionController {
 	@PostMapping("/add-question") //Tested in Postman: Success
 	public Question addQuestion(@RequestBody Question incomingQuestion) {
 		System.out.println(incomingQuestion);
-		return qDao.save(incomingQuestion);
+		List<Answer> answer = incomingQuestion.getAnswer();  
+		Question savedQuestion = qDao.save(incomingQuestion);
+		for (Answer ans : answer) {
+			ans.setQuestion(savedQuestion);
+//			aDao.save(ans.getQuestion().getId());
+		}
+		aDao.saveAll(answer);
+		return savedQuestion;
 	}
 	
 
@@ -83,35 +90,38 @@ public class QuestionController {
 			incomingQuestion.setId(id);
 			return qDao.save(incomingQuestion);
 		});
+
 		
 //		return qDao.save(incomingQuestion);
 	}
 	
-	@PostMapping("/link")
-	public LinkQA basicLink(@RequestBody LinkQA qa) {
-		System.out.println("Link! Listen!");
-		
-		System.out.println(">>> qa:" + qa);
-
-		
-		Optional<Question> q = qDao.findById(qa.getqId());
-		Question question = null;
-		Answer answer = null;
-		
-		Optional<Answer> a = aDao.findById(qa.getaId());
-
-		if(a.isPresent()) {
-			 answer = a.get();
-			if(q.isPresent()) {
-				question = q.get();
-				
-				question.setAnswer(answer);
-				answer.setQuestion(question);
-				
-				qDao.save(question);
-				aDao.save(answer);
-			}
-		}
-		return qa;
-	}
+	//To reactivate for linking Question and Answer
+	
+//	@PostMapping("/link")
+//	public LinkQA basicLink(@RequestBody LinkQA qa) {
+//		System.out.println("Link! Listen!");
+//		
+//		System.out.println(">>> qa:" + qa);
+//
+//		
+//		Optional<Question> q = qDao.findById(qa.getqId());
+//		Question question = null;
+//		List<Answer> answer = null;
+//		
+//		Optional<Answer> a = aDao.findById(qa.getaId());
+//
+//		if(a.isPresent()) {
+//			 answer = a.get();
+//			if(q.isPresent()) {
+//				question = q.get();
+//				
+//				question.setAnswer(answer);
+//				answer.setQuestion(question);
+//				
+//				qDao.save(question);
+//				aDao.saveAll(answer);
+//			}
+//		}
+//		return qa;
+//	}
 }
