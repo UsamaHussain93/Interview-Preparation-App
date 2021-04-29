@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.dao.UserDao;
+import com.fdmgroup.model.AccountType;
 import com.fdmgroup.model.Question;
 import com.fdmgroup.model.User;
 
@@ -64,24 +65,30 @@ public class UserController {
 		List<User> foundUsers = new ArrayList<>();
 		String userName = incomingUser.getUsername();
 		String email = incomingUser.getEmail();
+		AccountType accountType = incomingUser.getAccountType();
 		userDao.findAll().forEach(user -> foundUsers.add(user));
 		
-		if(foundUsers.isEmpty())
-		{
-			System.out.println("Registering First User");
-			return userDao.save(incomingUser);
-		}
-		else {
-			for(User u: foundUsers) {
-				if(u.getUsername().equals(userName) || u.getEmail().equals(email)) {
-					System.out.println("Username or Email is already associated with another account");
-					return null;
-				}
-				else {
-					System.out.println("Registering New User");
-					return userDao.save(incomingUser);
-	    		}
-	    	}
+		if(accountType == AccountType.Trainer) {
+			System.out.println("Trainer Account creation requires admin access.");
+			return null;
+		}else {
+			if(foundUsers.isEmpty())
+			{
+				System.out.println("Registering First User");
+				return userDao.save(incomingUser);
+			}
+			else {
+				for(User u: foundUsers) {
+					if(u.getUsername().equals(userName) || u.getEmail().equals(email)) {
+						System.out.println("Username or Email is already associated with another account");
+						return null;
+					}
+					else {
+						System.out.println("Registering New User");
+						return userDao.save(incomingUser);
+		    		}
+		    	}
+			}
 		}
 		return null;
 	    
