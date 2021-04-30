@@ -1,17 +1,21 @@
+import { Question } from "./Question";
 
 
 
 
 export class Answer
 {
-   public id?:number;
+    public id?:number;
+    public question?: Question;
     public answerText:string;
-    public isCorrectAnswer: boolean = false;
+    public correctAnswer: boolean = false;
 
-    constructor(answerText?:string, isCorrectAnswer?: boolean, id?:number) 
+    constructor(id?:number, question?:Question, answerText?:string, isCorrectAnswer?: boolean) 
     {
+        this.id = id;
+        this.question = question;
         this.answerText = answerText;
-        this.isCorrectAnswer = isCorrectAnswer;
+        this.correctAnswer = isCorrectAnswer;
     }
     getId(): number {
         return this.id;

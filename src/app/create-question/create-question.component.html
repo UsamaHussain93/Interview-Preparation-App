@@ -7,50 +7,65 @@
             <label class="form-check-label" for="inlineRadio1">Behavioural</label>
         </div>
         <div class="form-check form-check-inline">
-            <input [(ngModel)]="question.questionType" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Technical" (click)="onItemChange($event.target.value)">
+            <input [(ngModel)]="question.questionType" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Technical" (change)="onItemChange($event.target.value)">
             <label class="form-check-label" for="inlineRadio2">Technical</label>
         </div>
        
         <div *ngIf="isTechnical"  class="form-group">
+            <label for="">Choose a Topic for Question</label> 
             <select [(ngModel)]="question.questionTopic" class="custom-select" name="questionTopic">
-                <option selected>Select Question Topic</option>
+                <!-- <option selected>Select Question Topic</option> -->
                 <option *ngFor="let topic of topics">{{ topic }}</option>
             </select>
         </div>
         
-        <div class="form-group">
+        <div *ngIf="isTechnical" class="form-group">
             <label for="">Description</label>
             <input [(ngModel)]="question.description"  type="text" class="form-control" name="description" placeholder="Enter your question">
         </div>
-         
-<!--             
-        <div *ngIf="isTechnical" class="form-group">
-            <label for="">Number Of Choices</label>
-            <select [(ngModel)]="numberOfChoices" class="custom-select" id="numberOfChoices" name="numberOfChoices">
-               
-                <option selected>2</option>
-                <option selected>4</option>
-                <option selected>Select number of Choices</option>
-            </select>  
-        </div> -->
-       
-        <!-- <div *ngFor="let num of numberOfChoices">
-            {{num}}
-        </div> -->
 
-        <div>
-            <label for="">Answer:</label>
-            <input [(ngModel)]="answer.answerText" type="text" class="form-control" name="answerText" placeholder="Enter your answer">
+        <div *ngIf="isTechnical">
+            <label for="">Answer:</label>            
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                  <input [(ngModel)]="correctChoice" type="radio" name="answerChoices" id="firstChoice" value="option1" (change)="onChoiceChange($event.target.value)" aria-label="Radio button for following text input">
+                  </div>
+                </div>
+                <input [(ngModel)]="answer1.answerText" type="text" class="form-control" name="answerText" placeholder="Enter Answer Choice" aria-label="Text input with radio button">
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                  <input [(ngModel)]="correctChoice" type="radio" name="answerChoices" value="option2" id="secondChoice" (change)="onChoiceChange($event.target.value)" aria-label="Radio button for following text input">
+                  </div>
+                </div>
+                <input [(ngModel)]="answer2.answerText" type="text" class="form-control" name="answerText" placeholder="Enter Answer Choice" aria-label="Text input with radio button">
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                  <input [(ngModel)]="correctChoice" type="radio" name="answerChoices" value="option3" id="thirdChoice" (change)="onChoiceChange($event.target.value)" aria-label="Radio button for following text input">
+                  </div>
+                </div>
+                <input [(ngModel)]="answer3.answerText" type="text" class="form-control" name="answerText" placeholder="Enter Answer Choice" aria-label="Text input with radio button">
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                  <input [(ngModel)]="correctChoice" type="radio" name="answerChoices" value="option4" id="forthChoice" (change)="onChoiceChange($event.target.value)" aria-label="Radio button for following text input">
+                  </div>
+                </div>
+                <input [(ngModel)]="answer4.answerText" type="text" class="form-control" name="answerText" placeholder="Enter Answer Choice" aria-label="Text input with radio button">
+            </div>
         </div>
 
-        <div>{{answer | json}}</div>
+        <div>{{answer1 | json}}</div>
+        <div>{{answer2 | json}}</div>
+        <div>{{answer3 | json}}</div>
+        <div>{{answer4 | json}}</div>
 
-        <div> {{question | json }}
-        </div>
-        <div *ngFor="let answer of numberOfChoices; index as i;  first as isFirst">
-            {{i}}    
-        </div>
-
+        <div> {{question | json }}</div>
 
         <button (click)="submitQuestion(questionForm)" type="button" class="btn btn-success float-right">Submit Question</button>
     </form>

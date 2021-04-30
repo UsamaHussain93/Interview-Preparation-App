@@ -9,7 +9,7 @@ export class Question
     description?: string;
     questionType?: QuestionType;
     questionTopic?: QuestionTopic;
-    answerList?: Answer[];
+    answer?: Answer[];
 
     constructor(id?:number, description? :string, questionType?: QuestionType, questionTopic?: QuestionTopic, answerList?: Answer[])
     {
@@ -17,7 +17,7 @@ export class Question
         this.description = description;
         this.questionType = questionType;
         this.questionTopic = questionTopic;
-        this.answerList = answerList;
+        this.answer = answerList;
     }
     getId(): number {
         return this.id;
