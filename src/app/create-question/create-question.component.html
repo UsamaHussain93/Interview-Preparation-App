@@ -1,6 +1,6 @@
-<div class="container">
-    <h2>Submit a question</h2>
-    <form class="form" #questionForm="ngForm" >
+<div class="container" id="createQuestionForm">
+    <h2>Submit a Question</h2>
+    <form class="form" #questionForm="ngForm" id="questionForm">
 
         <div class="form-check form-check-inline">
             <input [(ngModel)]="question.questionType" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Behavioural" (change)="onItemChange($event.target.value)">
@@ -60,13 +60,18 @@
             </div>
         </div>
 
-        <div>{{answer1 | json}}</div>
+        <div *ngIf="!isTechnical" class="form-group">
+            <label for="">Description</label>
+            <input [(ngModel)]="question.description"  type="text" class="form-control" name="description" placeholder="Enter your question">
+        </div>
+
+        <!-- <div>{{answer1 | json}}</div>
         <div>{{answer2 | json}}</div>
         <div>{{answer3 | json}}</div>
         <div>{{answer4 | json}}</div>
 
-        <div> {{question | json }}</div>
+        <div> {{question | json }}</div> -->
 
-        <button (click)="submitQuestion(questionForm)" type="button" class="btn btn-success float-right">Submit Question</button>
+        <button (click)="submitQuestion(questionForm); questionForm.resetForm();" onclick="alert('Your question has been submitted')" type="button" class="btn btn-success float-right" id="submitQuestionButton">Submit Question</button>
     </form>
 </div>
